@@ -125,11 +125,11 @@ class App extends Component {
           definition: "col-3 col-sm-2 col-md-1",
         },
       },
-      displayList: this.props.displayList,
-      currentDisplay: this.props.displayList[0],
       cexList: this.props.cexList,
       displayCexFirst: 0,
       displayCexLength: 0,
+      indicatorList: this.props.indicatorList1,
+      orderedFormulaList: this.props.orderedFormulaList1,
     };
     this.changeCexValue = this.changeCexValue.bind(this);
     this.moveLeft = this.moveLeft.bind(this);
@@ -175,7 +175,7 @@ class App extends Component {
 
   changeCexValue(key, value) {
     //console.log("changeCexValue: key=", key, ", value=", value);
-    const newCexList = Cex.modifyCexValue(this.state.cexList, key, value, this.state.currentDisplay.orderedFormulaList);
+    const newCexList = Cex.modifyCexValue(this.state.cexList, key, value, this.state.orderedFormulaList);
     this.setState({
       cexList: [...newCexList],
     });
@@ -198,12 +198,17 @@ class App extends Component {
     }
   }
 
-  changeDisplay(event) {
-    //console.log("event:", event.target.id);
-    const foundDisplay = this.state.displayList.find(display => display.id.toString() === event.target.id);
-    if (foundDisplay) {
+  changeDisplay(nb) {
+    if (nb === 1) {
       this.setState({
-        currentDisplay: foundDisplay,
+        indicatorList: this.props.indicatorList1,
+        orderedFormulaList: this.props.orderedFormulaList1
+      });
+    }
+    if (nb === 2) {
+      this.setState({
+        indicatorList: this.props.indicatorList2,
+        orderedFormulaList: this.props.orderedFormulaList2
       });
     }
   }
@@ -233,9 +238,8 @@ class App extends Component {
 
           <div className="col-12 col-sm-3">
             <div className="container">
-              { this.state.displayList.map(display =>
-                  <button type="button" key={display.id} id={display.id} className="btn btn-secondary mr-1" onClick={this.changeDisplay}>{display.name}</button>
-              )}
+              <button type="button" className="btn btn-secondary mr-1" onClick={() => this.changeDisplay(1)}>Display 1</button>
+              <button type="button" className="btn btn-secondary" onClick={() => this.changeDisplay(2)}>Display 2</button>
             </div>
           </div>
         </div>
@@ -250,7 +254,7 @@ class App extends Component {
           }
         </div>
 
-        {this.state.currentDisplay.indicatorList.map(indicator =>
+        {this.state.indicatorList.map(indicator =>
           <IndicatorRow
             key={indicator.name}
             indicator={indicator}
@@ -261,7 +265,7 @@ class App extends Component {
 
         <div className="row mt-3 cell-header">
           <div className="container mt-3">
-            <textarea style={{width:600, height:200}} value={JSON.stringify(this.state.currentDisplay.indicatorList).replace(new RegExp("},","g"), "},\n")} readOnly/>
+            <textarea style={{width:600, height:200}} value={JSON.stringify(this.state.indicatorList).replace(new RegExp("},","g"), "},\n")} readOnly/>
           </div>
         </div>
       </div>
