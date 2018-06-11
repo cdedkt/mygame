@@ -1,0 +1,23 @@
+.cell-cex {
+  background-color: none;
+}
+
+.cell-cex-changeable {
+  width: 80%;
+  background-color: #e9ecef;
+}
+
+.cell-cex-changed {
+  color: blue;
+}
+
+.cell-header {
+  align: center;
+  background-color: #e9ecef
+}
+
+body {
+  font-family: -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol";
+  font-size: 1rem;
+  font-weight: 400;
+}
